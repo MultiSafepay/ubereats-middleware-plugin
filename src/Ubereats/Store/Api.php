@@ -7,7 +7,9 @@ namespace UbereatsPlugin\Ubereats\Store;
 use Illuminate\Support\Collection;
 use UbereatsModels\Login\Scope;
 use UbereatsModels\Store\Store;
+use UbereatsModels\Store\Integration;
 use UbereatsPlugin\Ubereats\ApiRequest;
+use Exception;
 
 class Api
 {
@@ -31,5 +33,21 @@ class Api
         $data = $this->api->send('GET', "stores/$storeId");
 
         return new Store($data);
+    }
+
+    public function getIntegrationDetails(string $storeId): Integration
+    {
+        $data = $this->api->send('GET', "stores/$storeId/pos_data");
+
+        return new Integration($data);
+    }
+
+    public function activateIntegration(string $storeId): void
+    {
+        $data = $this->api->send('POST', "stores/$storeId/pos_data");
+
+        if (is_string($data)) {
+            throw new Exception($data);
+        }
     }
 }

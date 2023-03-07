@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dd08c2ffcffe2519541d56907b7ab008",
+    "content-hash": "77242183326d250a48478a4bccde075a",
     "packages": [
         {
             "name": "multisafepay/laravel-cast-json-models",
@@ -96,12 +96,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/MultiSafepay/laravel-ubereats-models.git",
-                "reference": "1f227353e4471bc108bdc5f6e78f3b01ac7381b1"
+                "reference": "09c36afe9fee439a98fb5fa49df389b566c32b1f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MultiSafepay/laravel-ubereats-models/zipball/1f227353e4471bc108bdc5f6e78f3b01ac7381b1",
-                "reference": "1f227353e4471bc108bdc5f6e78f3b01ac7381b1",
+                "url": "https://api.github.com/repos/MultiSafepay/laravel-ubereats-models/zipball/09c36afe9fee439a98fb5fa49df389b566c32b1f",
+                "reference": "09c36afe9fee439a98fb5fa49df389b566c32b1f",
                 "shasum": ""
             },
             "require": {
@@ -137,10 +137,10 @@
             ],
             "description": "A package for communicating problems",
             "support": {
-                "source": "https://github.com/MultiSafepay/laravel-ubereats-models/tree/1.0.03",
+                "source": "https://github.com/MultiSafepay/laravel-ubereats-models/tree/1.0.4",
                 "issues": "https://github.com/MultiSafepay/laravel-ubereats-models/issues"
             },
-            "time": "2023-03-07T09:49:53+00:00"
+            "time": "2023-03-07T15:50:28+00:00"
         }
     ],
     "packages-dev": [
