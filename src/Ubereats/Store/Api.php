@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace UbereatsPlugin\Ubereats\Store;
 
-use UbereatsPlugin\Ubereats\ApiRequest;
-use UbereatsPlugin\Ubereats\Enum\Scope;
-use UbereatsPlugin\Ubereats\Models\Store;
 use Illuminate\Support\Collection;
+use UbereatsModels\Login\Scope;
+use UbereatsModels\Store\Store;
+use UbereatsPlugin\Ubereats\ApiRequest;
 
 class Api
 {
@@ -18,7 +18,7 @@ class Api
         $this->api = ApiRequest::v1(Scope::store);
     }
 
-    /** @return Collection<\UbereatsPlugin\Ubereats\Models\Store> */
+    /** @return Collection<\UbereatsModels\Store\Store> */
     public function get(): Collection
     {
         $data = $this->api->send('GET', 'stores');

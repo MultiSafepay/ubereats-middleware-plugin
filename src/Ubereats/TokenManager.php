@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace UbereatsPlugin\Ubereats;
 
-use UbereatsPlugin\Ubereats\Enum\GrantType;
-use UbereatsPlugin\Ubereats\Enum\Scope;
-use UbereatsPlugin\Ubereats\Models\Login;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
+use UbereatsModels\Login\GrantType;
+use UbereatsModels\Login\Login;
+use UbereatsModels\Login\Scope;
 use Exception;
 
 class TokenManager

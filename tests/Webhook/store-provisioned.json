@@ -1,0 +1,13 @@
+{
+    "event_type": "store.provisioned",
+    "store_id": "66f60085-a9c8-4ef7-9f4a-c7867f448905",
+    "partner_store_id": "123456",
+    "perform_refresh_menu": false,
+    "resource_href": "https://api.uber.com/v1/eats/stores/66f60085-a9c8-4ef7-9f4a-c7867f448905/pos_data",
+    "webhook_meta": {
+      "client_id": "_ZIpAofJqMTBPFy3-ig_pdeRtBox1DZ",
+      "webhook_config_id": "eats-pos-provision-platform.provisioning-update",
+      "webhook_msg_timestamp": 1623317195,
+      "webhook_msg_uuid": "b32d30e4-6230-4972-a051-d37c2692b4f8"
+    }
+}

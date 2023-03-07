@@ -4,19 +4,20 @@ declare(strict_types=1);
 
 namespace UbereatsPlugin\Jobs;
 
-use UbereatsPlugin\Ubereats\Enum\EventTypes;
+use UbereatsModels\Enum\EventTypes;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use UbereatsPlugin\Ubereats\Models\Webhook as Model;
 use UbereatsPlugin\Ubereats\Order\Api as OrderApi;
 use NotificationFailure\Model as NotificationFailureModel;
 use NotificationFailure\Notification as NotificationFailure;
 use NotificationFailure\LogLevel;
 use Illuminate\Support\Facades\DB;
 use UbereatsPlugin\Api\ApiRequest as BackendApi;
+use UbereatsModels\Webhook\Webhook as Model;
+
 use Exception;
 use Throwable;
 
@@ -24,24 +25,13 @@ class Webhook implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private Model $model;
+    public function __construct(private Model $model){}
 
-    /**
-     * Execute the job.
-     *
-     * @param array<string, array<string>>|array<string, string> $request
-     *
-     * @return void
-     */
-    public function handle(array $request): void
+    public function handle(): void
     {
-        $model = new Model($request);
-
-        if (empty($model->event_type)) {
+        if (empty($this->model->event_type)) {
             throw new Exception('ubereats_webhook_invalid_request_data');
         }
-
-        $this->model = $model;
 
         $this->process();
     }
@@ -55,10 +45,15 @@ class Webhook implements ShouldQueue
                 'data' => $this->model->toArray()
             ]
         );
+        $user = null;
 
-        $user = DB::table('users')->where('id', 1);
+        if (config('app.env') != 'testing') {
+            $user = DB::table('users')->where('id', 1);
+        } else {
+            /** @phpstan-ignore-next-line */
+            $user = \Tests\User::find(1);
+        }
 
-        /** @phpstan-ignore-next-line */
         $user->notify(new NotificationFailure($data));
     }
 

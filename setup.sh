@@ -1,3 +1,4 @@
+#/usr/bin/bash
 composer install
 
 if [ -f .git/hooks/pre-commit ]

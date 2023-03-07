@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace UbereatsPlugin\Ubereats\Order;
 
+use UbereatsModels\Login\Scope;
+use UbereatsModels\Order\DeliveryStatus;
+use UbereatsModels\Order\Order;
 use UbereatsPlugin\Ubereats\ApiRequest;
-use UbereatsPlugin\Ubereats\Enum\DeliveryStatus;
-use UbereatsPlugin\Ubereats\Enum\Scope;
-use UbereatsPlugin\Ubereats\Models\Order;
 
 class Api
 {

@@ -11,7 +11,7 @@ class UbereatsPluginServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../config/config.php',
+            __DIR__.'/config/config.php',
             'ubereats'
         );
     }
@@ -20,10 +20,10 @@ class UbereatsPluginServiceProvider extends ServiceProvider
     {
         $this->publishes(
             [
-                __DIR__.'/../config/config.php' => config_path('config.php'),
+                __DIR__.'/config/config.php' => config_path('config.php'),
             ],
         );
 
-        $this->loadRoutesFrom(__DIR__.'/../routes/ubereats.php');
+        $this->loadRoutesFrom(__DIR__.'/routes/ubereats.php');
     }
 }

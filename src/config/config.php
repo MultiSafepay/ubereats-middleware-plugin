@@ -9,14 +9,14 @@ return [
     'backend_api' => [
         'token_manager_class' => TokenManager::class,
         'api_handler_class' => ApiRequest::class,
-        'login_url' => getenv('BACKEND_LOGIN_URL'),
-        'refresh_url' => getenv('BACKEND_REFRESH_URL'),
-        'username' => getenv('BACKEND_USERNAME'),
-        'password' => getenv('BACKEND_PASSWORD'),
+        'login_url' => env('BACKEND_LOGIN_URL'),
+        'refresh_url' => env('BACKEND_REFRESH_URL'),
+        'username' => env('BACKEND_USERNAME'),
+        'password' => env('BACKEND_PASSWORD'),
     ],
     'ubereats_api' => [
-        'url' => getenv('UBEREATS_URL'),
-        'client_secret' => getenv('UBEREATS_CLIENT_SECRET'),
-        'client_id' => getenv('UBEREATS_CLIENT_ID'),
+        'url' => env('UBEREATS_URL'),
+        'client_secret' => env('UBEREATS_CLIENT_SECRET'),
+        'client_id' => env('UBEREATS_CLIENT_ID'),
     ],
 ];

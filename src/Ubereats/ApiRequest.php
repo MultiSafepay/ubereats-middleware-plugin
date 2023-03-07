@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace UbereatsPlugin\Ubereats;
 
-use UbereatsPlugin\Ubereats\Enum\Scope;
 use Illuminate\Support\Facades\Http;
+use UbereatsModels\Login\Scope;
 
 class ApiRequest
 {
