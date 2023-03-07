@@ -7,6 +7,7 @@ namespace Tests\Webhook;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
+use Tests\User;
 
 class StoreProvisionedTest extends TestCase
 {
@@ -14,6 +15,10 @@ class StoreProvisionedTest extends TestCase
 
     public function testStoreProvisionedOk(): void
     {
+        Notification::fake();
+
+        User::factory()->create();
+
         $file = file_get_contents(__DIR__.'/store-provisioned.json');
         $data = json_decode($file, true);
 

@@ -8,18 +8,12 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use UbereatsPlugin\Jobs\Webhook as JobWebhook;
 use UbereatsModels\Webhook\Webhook as JobModel;
-use Illuminate\Support\Facades\Notification;
 use Exception;
-use Tests\User;
 
 class Webhook extends Controller
 {
     public function __invoke(Request $request): void
     {
-        Notification::fake();
-
-        User::factory()->create();
-
         $data = $request->all();
 
         $this->validateBody($data, $request->header('X-Uber-Signature'));
