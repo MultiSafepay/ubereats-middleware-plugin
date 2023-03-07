@@ -47,11 +47,11 @@ class Webhook implements ShouldQueue
         );
         $user = null;
 
-        if (config('app.env') != 'testing') {
-            $user = DB::table('users')->where('id', 1);
-        } else {
+        if (class_exists('Tests\User')) {
             /** @phpstan-ignore-next-line */
             $user = \Tests\User::find(1);
+        } else {
+            $user = DB::table('users')->where('id', 1);
         }
 
         $user->notify(new NotificationFailure($data));
