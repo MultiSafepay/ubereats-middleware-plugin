@@ -34,10 +34,10 @@ else
     exit 1
 fi
 
-# echo -e ${running_tests_message}
-# if ./vendor/bin/phpunit --stop-on-failure --stop-on-error; then
-#    echo -e ${success_message}
-# else
-#    echo -e ${error_message}
-#    exit 1
-# fi
+echo -e ${running_tests_message}
+if ./vendor/bin/phpunit --stop-on-failure --stop-on-error; then
+   echo -e ${success_message}
+else
+   echo -e ${error_message}
+   exit 1
+fi
