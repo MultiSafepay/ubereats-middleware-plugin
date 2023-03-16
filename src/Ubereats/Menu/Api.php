@@ -18,7 +18,7 @@ class Api
 
     /**
      * @param string $storeId
-     * @param array<string, array<string>> $data
+     * @param array<string, array<string>>|array<string, string> $data
      */
     public function upload(string $storeId, array $data): void
     {

@@ -9,37 +9,29 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use UbereatsPlugin\Ubereats\Order\Api as OrderApi;
 use NotificationFailure\Model as NotificationFailureModel;
 use NotificationFailure\Notification as NotificationFailure;
 use NotificationFailure\LogLevel;
 use Illuminate\Support\Facades\DB;
-use UbereatsPlugin\Api\ApiRequest as BackendApi;
+use UbereatsPlugin\Ubereats\Menu\Api;
+
 use Throwable;
 
-class OrderCancel implements ShouldQueue
+class Menu implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
      *
-     * @var array<string, array<string>>|array<string, string> $data
+     * @param array<string, array<string>>|array<string, string> $data
      */
-    private array $data;
+    public function __construct(private array $data)
+    {}
 
-    /**
-     * Execute the job.
-     *
-     * @param array<string, array<string>>|array<string, string> $request
-     *
-     * @return void
-     */
-    public function handle(array $request): void
+    public function handle(): void
     {
-        $this->data = $request;
-
-        $this->cancelOrder();
-        $this->confirmCancel();
+        $api = new Api();
+        $api->upload($this->data['storeId'], $this->data['menus']);
     }
 
     public function failed(Throwable $exception): void
@@ -56,19 +48,5 @@ class OrderCancel implements ShouldQueue
 
         /** @phpstan-ignore-next-line */
         $user->notify(new NotificationFailure($data));
-    }
-
-    private function cancelOrder(): void
-    {
-        $orderApi = new OrderApi();
-
-        $orderApi->cancel($this->data['orderId']);
-    }
-
-    private function confirmCancel(): void
-    {
-        $api = new BackendApi();
-
-        $api->confirm('order-cancelled', $this->data);
     }
 }

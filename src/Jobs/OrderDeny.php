@@ -69,6 +69,6 @@ class OrderDeny implements ShouldQueue
     {
         $api = new BackendApi();
 
-        $api->confirm('order-deny', $this->data);
+        $api->confirm('order-denied', $this->data);
     }
 }

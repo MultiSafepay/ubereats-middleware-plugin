@@ -69,6 +69,6 @@ class OrderAccept implements ShouldQueue
     {
         $api = new BackendApi();
 
-        $api->confirm('order-accept', $this->data);
+        $api->confirm('order-acceptted', $this->data);
     }
 }
