@@ -51,7 +51,7 @@ class Webhook implements ShouldQueue
             /** @phpstan-ignore-next-line */
             $user = \Tests\User::find(1);
         } else {
-            $user = DB::table('users')->where('id', 1);
+            $user = DB::table('users')->where('id', 1)->first();
         }
 
         $user->notify(new NotificationFailure($data));
@@ -61,15 +61,15 @@ class Webhook implements ShouldQueue
     {
         $eventType = $this->model->event_type;
 
-        if ($eventType == EventTypes::store_provisioned) {
+        if ($eventType == EventTypes::store_provisioned->value) {
             $this->storeProvisioned();
         }
 
-        if ($eventType == EventTypes::order_notification) {
+        if ($eventType == EventTypes::order_notification->value) {
             $this->orderNotification();
         }
 
-        if ($eventType == EventTypes::order_cancel) {
+        if ($eventType == EventTypes::order_cancel->value) {
             $this->orderCancelled();
         }
     }
