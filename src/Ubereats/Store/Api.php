@@ -10,6 +10,7 @@ use UbereatsModels\Store\Store;
 use UbereatsModels\Store\Integration;
 use UbereatsPlugin\Ubereats\ApiRequest;
 use Exception;
+use UbereatsModels\Order\Order;
 
 class Api
 {
@@ -49,5 +50,14 @@ class Api
         if (is_string($data)) {
             throw new Exception($data);
         }
+    }
+
+    public function getActiveCreated(string $storeId): Collection
+    {
+        $api = ApiRequest::v1(Scope::order_read);
+
+        $data = $api->send('GET', "/stores/$storeId/created-orders");
+
+        return Order::collection($data['orders']);
     }
 }

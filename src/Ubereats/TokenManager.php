@@ -26,7 +26,7 @@ class TokenManager
         private Scope $scope,
     )
     {
-        $this->grantType = ($scope != Scope::pos_provisioning) ?
+        $this->grantType = (in_array($scope, [Scope::pos_provisioning, Scope::order_read])) ?
             GrantType::client_credentials
             : GrantType::authorization_code;
     }
@@ -66,10 +66,10 @@ class TokenManager
             'scope' => $this->scope->value,
         ];
 
-        $response = Http::withHeaders($headers)->post(self::URL, $data)->throw()->json();
+        $response = Http::asForm()->post(self::URL, $data)->json();
 
         if (empty($response['access_token'])) {
-            throw new Exception('error_login_on_ubereats');
+            throw new Exception('error_login_on_ubereats: '.json_encode($response));
         }
 
         $ttl = Carbon::now()->addSeconds($response['expires_in'] - 30);

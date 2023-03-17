@@ -18,5 +18,6 @@ return [
         'url' => env('UBEREATS_URL'),
         'client_secret' => env('UBEREATS_CLIENT_SECRET'),
         'client_id' => env('UBEREATS_CLIENT_ID'),
+        'test_store' => env('UBEREATS_TEST_STORE'),
     ],
 ];

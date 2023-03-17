@@ -31,7 +31,8 @@
     "require": {
         "multisafepay/laravel-cast-json-models": "^1.0",
         "multisafepay/laravel-notification-failure": "^1.0",
-        "multisafepay/laravel-ubereats-models": "dev-main"
+        "multisafepay/laravel-ubereats-models": "dev-main",
+        "guzzlehttp/guzzle": "^7.5"
     },
     "repositories": [
         {
