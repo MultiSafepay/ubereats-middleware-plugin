@@ -22,7 +22,7 @@ class ApiRequest
      * @param array<string, array<string>>|array<string, string> $data
      * @return array<string, array<string>>|array<string, string>
      */
-    public function webhook(string $action, array $data): string|array
+    public function webhook(string $action, array $data): string|array|null
     {
         return $this->post('middleware/webhook', $action, $data);
     }
@@ -32,7 +32,7 @@ class ApiRequest
      * @param array<string, array<string>>|array<string, string> $data
      * @return array<string, array<string>>|array<string, string>
      */
-    public function confirm(string $action, array $data): string|array
+    public function confirm(string $action, array $data): string|array|null
     {
         return $this->post('middleware/confirm', $action, $data);
     }
