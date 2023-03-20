@@ -43,7 +43,7 @@ class ApiRequest
      * @param array<string, array<string>>|array<string, string> $data
      * @return array<string, array<string>>|array<string, string>
      */
-    private function post(string $path, string $action, array $data): array
+    private function post(string $path, string $action, array $data): array|null
     {
         $data['vendor'] = self::VENDOR;
         $data['action'] = $action;
