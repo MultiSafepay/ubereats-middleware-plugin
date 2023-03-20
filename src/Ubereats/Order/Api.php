@@ -21,13 +21,13 @@ class Api
     public function accept(string $orderId, string $reason = 'accepted'): void
     {
         $api = ApiRequest::v2(Scope::order);
-        $api->send('POST', "/orders/$orderId/accept_pos_order", ['reason' => $reason]);
+        $api->send('POST', "order/$orderId/accept_pos_order", ['reason' => $reason]);
     }
 
     public function cancel(string $orderId): void
     {
         $api = ApiRequest::v2(Scope::order);
-        $api->send('POST', "/orders/$orderId/cancel");
+        $api->send('POST', "order/$orderId/cancel");
     }
 
     public function deny(string $orderId, string $reason = 'unspecified'): void
@@ -39,18 +39,18 @@ class Api
             ],
         ];
 
-        $this->api->send('POST', "/orders/$orderId/deny_pos_order", $data);
+        $this->api->send('POST', "order/$orderId/deny_pos_order", $data);
     }
 
     public function updateDeliveryStatus(string $orderId, DeliveryStatus $status): void
     {
-        $this->api->send('POST', "/orders/$orderId/restaurantdelivery/status", ['status' => $status->value]);
+        $this->api->send('POST', "order/$orderId/restaurantdelivery/status", ['status' => $status->value]);
     }
 
     public function getDetails(string $orderId): Order
     {
         $api = ApiRequest::v2(Scope::order);
-        $data = $api->send('GET', "/orders/$orderId");
+        $data = $api->send('GET', "order/$orderId");
 
         return new Order($data);
     }

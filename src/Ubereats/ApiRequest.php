@@ -50,6 +50,9 @@ class ApiRequest
             return $response->json();
         }
 
-        throw new Exception("Error requesting ubereats, method: $method, path: $path, data: ".print_r($data, true).$response->json());
+        $message = "Error requesting ubereats, method: $method, path: $path, data: ".print_r($data, true);
+        $message .= PHP_EOL.' Response: '.$response->json();
+
+        throw new Exception($message);
     }
 }
