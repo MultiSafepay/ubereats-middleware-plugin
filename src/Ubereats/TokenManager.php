@@ -17,18 +17,15 @@ class TokenManager
     private const CACHE_KEY = 'ubereats_token';
     private const URL = 'https://login.uber.com/oauth/v2/token';
 
-    private GrantType $grantType;
     private Login $model;
 
     public function __construct(
         private string $clientSecret,
         private string $clientId,
         private Scope $scope,
+        private GrantType $grantType
     )
     {
-        $this->grantType = (in_array($scope, [Scope::pos_provisioning, Scope::order_read])) ?
-            GrantType::client_credentials
-            : GrantType::authorization_code;
     }
 
     public function getToken(): string
@@ -55,10 +52,6 @@ class TokenManager
 
     private function login(): void
     {
-        $headers = [
-            'Content-Type' => 'application/x-www-form-urlencoded',
-        ];
-
         $data = [
             'client_secret' => $this->clientSecret,
             'client_id' => $this->clientId,

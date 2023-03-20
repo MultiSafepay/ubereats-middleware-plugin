@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace UbereatsPlugin\Ubereats;
 
 use Illuminate\Support\Facades\Http;
+use UbereatsModels\Login\GrantType;
 use UbereatsModels\Login\Scope;
 
 class ApiRequest
@@ -13,20 +14,25 @@ class ApiRequest
     private string $url;
     private TokenManager $tokenManager;
 
-    public static function v1(Scope $scope) : self
+    public static function v1(Scope $scope, GrantType $grantType = GrantType::client_credentials) : self
     {
-        return new self('/v1/eats/', $scope);
+        return new self('/v1/eats/', $scope, $grantType);
     }
 
-    public static function v2(Scope $scope) : self
+    public static function v2(Scope $scope, GrantType $grantType = GrantType::client_credentials) : self
     {
-        return new self('/v2/eats/', $scope);
+        return new self('/v2/eats/', $scope, $grantType);
     }
 
-    public function __construct(string $version, Scope $scope)
+    public function __construct(string $version, Scope $scope, GrantType $grantType)
     {
         $this->url = self::BASE_URL.$version;
-        $this->tokenManager = new TokenManager(config('ubereats.ubereats_api.client_secret'), config('ubereats.ubereats_api.client_id'), $scope);
+        $this->tokenManager = new TokenManager(
+            config('ubereats.ubereats_api.client_secret'),
+            config('ubereats.ubereats_api.client_id'),
+            $scope,
+            $grantType
+        );
     }
 
     /**
