@@ -15,9 +15,9 @@ class StoreActiveOrderTest extends TestCase
     public function testGetActiveCreatedOk(): void
     {
         $api = new Api();
-        
+
         $collection = $api->getActiveCreated(config('ubereats.ubereats_api.test_store'));
 
-        $this->assertEquals(1, $collection->count(), 'Has you created an order');
+        $this->assertEquals(1, $collection->count(), 'Has you created an order on the uber site ?');
     }
 }

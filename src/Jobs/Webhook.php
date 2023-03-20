@@ -45,13 +45,15 @@ class Webhook implements ShouldQueue
                 'data' => $this->model->toArray()
             ]
         );
+
         $user = null;
 
         if (class_exists('Tests\User')) {
             /** @phpstan-ignore-next-line */
             $user = \Tests\User::find(1);
         } else {
-            $user = DB::table('users')->where('id', 1)->first();
+            /** @phpstan-ignore-next-line */
+            $user = \App\Models\User::where('id', 1)->first();
         }
 
         $user->notify(new NotificationFailure($data));

@@ -9,6 +9,7 @@ return [
     'backend_api' => [
         'token_manager_class' => TokenManager::class,
         'api_handler_class' => ApiRequest::class,
+        'url' => env('BACKEND_URL'),
         'login_url' => env('BACKEND_LOGIN_URL'),
         'refresh_url' => env('BACKEND_REFRESH_URL'),
         'username' => env('BACKEND_USERNAME'),

@@ -44,9 +44,16 @@ class Menu implements ShouldQueue
             ]
         );
 
-        $user = DB::table('users')->where('id', 1);
+        $user = null;
 
-        /** @phpstan-ignore-next-line */
+        if (class_exists('Tests\User')) {
+            /** @phpstan-ignore-next-line */
+            $user = \Tests\User::find(1);
+        } else {
+            /** @phpstan-ignore-next-line */
+            $user = \App\Models\User::where('id', 1)->first();
+        }
+
         $user->notify(new NotificationFailure($data));
     }
 }
