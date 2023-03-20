@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace UbereatsPlugin\Ubereats;
 
+use Exception;
 use Illuminate\Support\Facades\Http;
 use UbereatsModels\Login\GrantType;
 use UbereatsModels\Login\Scope;
@@ -43,6 +44,12 @@ class ApiRequest
      */
     public function send(string $method, string $path, null|array $data = null): string|array
     {
-        return Http::withToken($this->tokenManager->getToken())->$method($this->url.$path, $data)->throw()->json();
+        $response = Http::withToken($this->tokenManager->getToken())->$method($this->url.$path, $data);
+
+        if ($response->successful()) {
+            return $response->json();
+        }
+
+        throw new Exception("Error requesting ubereats, method: $method, path: $path, data: ".print_r($data, true).$response->json());
     }
 }
