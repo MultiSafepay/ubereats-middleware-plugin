@@ -45,10 +45,13 @@ class ApiRequest
      */
     private function post(string $path, string $action, array $data): array|null
     {
-        $data['vendor'] = self::VENDOR;
-        $data['action'] = $action;
+        $request = [
+            'vendor' => self::VENDOR,
+            'action' => $action,
+            'data' => $data,
+        ];
 
-        $response = Http::post($this->url.$path, $data);
+        $response = Http::post($this->url.$path, $request);
 
         if ($response->successful()) {
             return $response->json();
