@@ -20,10 +20,10 @@ class TokenManager
 
     public function __construct()
     {
-        $this->loginUrl = getenv('ubereats.backend_api.login_url');
-        $this->refreshUrl = getenv('ubereats.backend_api.refresh_url');
-        $this->username = getenv('ubereats.backend_api.username');
-        $this->password = getenv('ubereats.backend_api.password');
+        $this->loginUrl = config('ubereats.backend_api.login_url');
+        $this->refreshUrl = config('ubereats.backend_api.refresh_url');
+        $this->username = config('ubereats.backend_api.username');
+        $this->password = config('ubereats.backend_api.password');
     }
 
     public function getToken(): bool|string

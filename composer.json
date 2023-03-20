@@ -1,6 +1,6 @@
 {
     "name": "multisafepay/ubereats-middleware-plugin",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "A ubereats webhooks plug and play package",
     "type": "library",
     "license": "GPL-3.0-or-later",
