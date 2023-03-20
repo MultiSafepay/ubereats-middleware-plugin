@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace UbereatsPlugin\Api;
 
+use Exception;
 use Illuminate\Support\Facades\Http;
 
 class ApiRequest
 {
     private const VENDOR = 'ubereats';
     private string $url;
-    private TokenManager $tokenManager;
 
     public function __construct()
     {
         $this->url = config('ubereats.backend_api.url');
-        $this->tokenManager = new TokenManager();
     }
 
     /**
@@ -49,6 +48,15 @@ class ApiRequest
         $data['vendor'] = self::VENDOR;
         $data['action'] = $action;
 
-        return Http::withToken($this->tokenManager->getToken())->post($this->url.$path, $data)->throw()->json();
+        $response = Http::post($this->url.$path, $data);
+
+        if ($response->successful()) {
+            return $response->json();
+        }
+
+        $message = "Error requesting backend api, path: $path, data: ".print_r($data, true);
+        $message .= PHP_EOL.' Response: '.$response->json();
+
+        throw new Exception($message);
     }
 }
