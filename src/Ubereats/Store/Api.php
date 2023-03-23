@@ -26,7 +26,7 @@ class Api
     {
         $data = $this->api->send('GET', 'stores');
 
-        return Store::collection($data);
+        return Store::collection($data['stores']);
     }
 
     public function getDetails(string $storeId): Store

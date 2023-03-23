@@ -13,7 +13,6 @@ use UbereatsPlugin\Ubereats\Order\Api as OrderApi;
 use NotificationFailure\Model as NotificationFailureModel;
 use NotificationFailure\Notification as NotificationFailure;
 use NotificationFailure\LogLevel;
-use Illuminate\Support\Facades\DB;
 use UbereatsPlugin\Api\ApiRequest as BackendApi;
 use Throwable;
 
@@ -59,7 +58,7 @@ class OrderAccept implements ShouldQueue
             $user = \Tests\User::find(1);
         } else {
             /** @phpstan-ignore-next-line */
-            $user = \App\Models\User::where('id', 1)->first();
+            $user = \App\Models\User::where('role', 'support')->first();
         }
 
         $user->notify(new NotificationFailure($data));
