@@ -10,15 +10,12 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use UbereatsPlugin\Ubereats\Order\Api as OrderApi;
-use NotificationFailure\Model as NotificationFailureModel;
-use NotificationFailure\Notification as NotificationFailure;
-use NotificationFailure\LogLevel;
 use UbereatsPlugin\Api\ApiRequest as BackendApi;
 use Throwable;
 
 class OrderAccept implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Failed;
 
     /**
      *
@@ -39,29 +36,6 @@ class OrderAccept implements ShouldQueue
 
         $this->acceptOrder();
         $this->confirmAccepted();
-    }
-
-    public function failed(Throwable $exception): void
-    {
-        $data = new NotificationFailureModel(
-            [
-                'logLevel' => LogLevel::emergency->value,
-                'problem' => $exception->getMessage(),
-                'data' => $this->data
-            ]
-        );
-
-        $user = null;
-
-        if (class_exists('Tests\User')) {
-            /** @phpstan-ignore-next-line */
-            $user = \Tests\User::find(1);
-        } else {
-            /** @phpstan-ignore-next-line */
-            $user = \App\Models\User::where('role', 'support')->first();
-        }
-
-        $user->notify(new NotificationFailure($data));
     }
 
     private function acceptOrder(): void

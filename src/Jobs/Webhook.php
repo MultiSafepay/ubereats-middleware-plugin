@@ -10,20 +10,15 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use UbereatsPlugin\Ubereats\Order\Api as OrderApi;
-use NotificationFailure\Model as NotificationFailureModel;
-use NotificationFailure\Notification as NotificationFailure;
-use NotificationFailure\LogLevel;
-use Illuminate\Support\Facades\DB;
 use UbereatsPlugin\Api\ApiRequest as BackendApi;
 use UbereatsModels\Webhook\Webhook as Model;
+use UbereatsPlugin\Ubereats\Order\Api as OrderApi;
 
 use Exception;
-use Throwable;
 
 class Webhook implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Failed;
 
     public function __construct(private Model $model){}
 
@@ -34,29 +29,6 @@ class Webhook implements ShouldQueue
         }
 
         $this->process();
-    }
-
-    public function failed(Throwable $exception): void
-    {
-        $data = new NotificationFailureModel(
-            [
-                'logLevel' => LogLevel::emergency->value,
-                'problem' => $exception->getMessage(),
-                'data' => $this->model->toArray()
-            ]
-        );
-
-        $user = null;
-
-        if (class_exists('Tests\User')) {
-            /** @phpstan-ignore-next-line */
-            $user = \Tests\User::find(1);
-        } else {
-            /** @phpstan-ignore-next-line */
-            $user = \App\Models\User::where('id', 1)->first();
-        }
-
-        $user->notify(new NotificationFailure($data));
     }
 
     private function process(): void
